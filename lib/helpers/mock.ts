@@ -72,7 +72,7 @@ import type {
     const viewerCount = Math.max(0, (room.viewerCount ?? 0) + delta);
   
     let featured = room.featured;
-    let participants = [...room.participants];
+    const participants = [...room.participants];
     if (Math.random() < 0.1 && participants.length > 0) {
       const idx = rand(0, participants.length - 1);
       const pickP = participants[idx];
@@ -126,4 +126,3 @@ import type {
       viewers: 100 + i * 7,
       disabled: i % 4 === 0,
     }));
-  

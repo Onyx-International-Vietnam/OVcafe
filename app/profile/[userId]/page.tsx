@@ -5,10 +5,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, UserCheck, UserPlus, Users } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, use } from "react";
+import Image from "next/image";
 
-export default function Page({ params }: { params: { userId: string } }) {
-  const { userId } = params;
+export default function Page({ params }: { params: Promise<{ userId: string }> }) {
+  const { userId } = use(params);
   const user = mockUser(userId, `User ${userId}`);
   
   const [friendStatus, setFriendStatus] = useState<"none" | "pending" | "friends">("none");
@@ -56,10 +57,11 @@ export default function Page({ params }: { params: { userId: string } }) {
       <Card className="overflow-hidden">
         {/* Cover Photo */}
         <div className="relative h-48 md:h-64 bg-muted overflow-hidden group">
-          <img 
+          <Image 
             src={`https://picsum.photos/seed/cover-${userId}/1200/400`}
             alt="Cover"
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-black/20" />
           <Button 
@@ -77,10 +79,11 @@ export default function Page({ params }: { params: { userId: string } }) {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-6">
             {/* Avatar */}
             <div className="-mt-16 h-32 w-32 rounded-full border-4 border-background bg-muted overflow-hidden flex-shrink-0 group relative">
-              <img 
+              <Image 
                 src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userId}`}
                 alt={user.name}
-                className="h-full w-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <Camera className="h-6 w-6 text-white" />
@@ -135,10 +138,11 @@ export default function Page({ params }: { params: { userId: string } }) {
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
           {[...Array(8)].map((_, i) => (
             <div key={i} className="aspect-square rounded-lg overflow-hidden bg-muted group relative cursor-pointer">
-              <img 
+              <Image 
                 src={`https://picsum.photos/seed/${userId}-photo-${i}/400/400`}
                 alt={`Photo ${i + 1}`}
-                className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
             </div>

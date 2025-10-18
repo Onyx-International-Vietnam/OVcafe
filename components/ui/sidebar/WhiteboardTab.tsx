@@ -91,7 +91,7 @@ export default function WhiteboardTab() {
                 <p className="text-sm text-muted-foreground">Canvas vẽ sẽ xuất hiện ở đây</p>
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">Nhấn "Mở Board" để bắt đầu</p>
+              <p className="text-sm text-muted-foreground">Nhấn &ldquo;Mở Board&rdquo; để bắt đầu</p>
             )}
           </div>
         </div>

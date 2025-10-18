@@ -1,6 +1,7 @@
 import type { Room } from "@/lib/helpers/types";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function RoomCard({ room }: { room: Room }) {
   return (
@@ -8,10 +9,11 @@ export default function RoomCard({ room }: { room: Room }) {
       <Card className="overflow-hidden transition-shadow hover:shadow-md">
         <div className="relative aspect-video bg-muted">
           {room.thumb && (
-            <img
+            <Image
               src={room.thumb}
               alt={room.title}
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              className="object-cover"
               loading="lazy"
             />
           )}

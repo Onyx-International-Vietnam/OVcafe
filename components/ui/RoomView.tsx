@@ -33,8 +33,8 @@ export default function RoomView({
       <div className="flex min-h-0 flex-col gap-3">
         <RoomHeader room={room} role={role} onRoleChange={setRole} />
         <div className="grid min-h-0 flex-1 grid-rows-[1fr_auto] gap-3">
-          <FeaturedStream room={room} role={role} quality={quality} />
-          <ParticipantGrid room={room} role={role} />
+          <FeaturedStream room={room} quality={quality} />
+          <ParticipantGrid room={room} />
         </div>
         <ControlBar
           role={role}

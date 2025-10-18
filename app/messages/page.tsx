@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ import { mockConversations } from "@/lib/helpers/mock";
 
 type Message = { id: string; from: "me" | "them"; text: string; ts: number };
 
-export default function Page() {
+function MessagesPage() {
   const qp = useSearchParams();
   const router = useRouter();
   const preselectId = qp.get("to") ?? undefined;
@@ -29,7 +30,7 @@ export default function Page() {
     const seed = (cid: string) =>
       Array.from({ length: 8 }, (_, i) => ({
         id: `${cid}-${i}`,
-        from: i % 2 ? "me" as "me" : "them" as "them",
+        from: i % 2 ? ("me" as const) : ("them" as const),
         text: i % 2 ? `Mình đã xem nhé (${i + 1})` : `Xin chào, rảnh không? (${i + 1})`,
         ts: Date.now() - (8 - i) * 60_000,
       }));
@@ -74,9 +75,10 @@ export default function Page() {
   }, [selectedId]);
 
   const endRef = React.useRef<HTMLDivElement | null>(null);
+  const currentMessagesLength = messages[selectedId]?.length;
   React.useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [selectedId, messages[selectedId]?.length, typing]);
+  }, [selectedId, currentMessagesLength, typing]);
 
   const [draft, setDraft] = React.useState("");
   function send() {
@@ -127,7 +129,7 @@ export default function Page() {
                     className={`flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-accent ${active ? "bg-accent" : ""}`}
                   >
                     <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-muted">
-                      <img src={c.avatar} alt={c.name} className="h-full w-full object-cover" loading="lazy" />
+                      <Image src={c.avatar} alt={c.name} className="h-full w-full object-cover" width={80} height={80} loading="lazy" />
                     </div>
                     <div className="min-w-0">
                       <div className="truncate text-sm font-semibold">{c.name}</div>
@@ -146,13 +148,16 @@ export default function Page() {
         {/* Header */}
         <div className="flex items-center gap-3 border-b p-3">
           <button
+            title={`View profile of ${selected.name}`}
             onClick={() => router.push(`/profile/${selected.id}`)}
             className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-muted transition-opacity hover:opacity-80"
           >
-            <img
+            <Image
               src={`https://i.pravatar.cc/80?u=${encodeURIComponent(selected.id)}`}
               alt={selected.name}
               className="h-full w-full object-cover"
+              width={80}
+              height={80}
               loading="lazy"
             />
           </button>
@@ -180,10 +185,12 @@ export default function Page() {
                 <div key={m.id} className={`flex items-end gap-2 ${mine ? "justify-end" : "justify-start"}`}>
                   {!mine && (
                     <div className="h-7 w-7 shrink-0 overflow-hidden rounded-full bg-muted">
-                      <img
+                      <Image
                         src={`https://i.pravatar.cc/40?u=${encodeURIComponent(selected.id)}`}
                         alt={selected.name}
                         className="h-full w-full object-cover"
+                        width={40}
+                        height={40}
                         loading="lazy"
                       />
                     </div>
@@ -230,5 +237,13 @@ export default function Page() {
         </form>
       </Card>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <React.Suspense fallback={<div className="flex h-[calc(100dvh-140px)] items-center justify-center">Đang tải...</div>}>
+      <MessagesPage />
+    </React.Suspense>
   );
 }

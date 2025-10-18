@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { mockFriends } from "@/lib/helpers/mock";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -111,11 +112,12 @@ export default function Page() {
             >
               <div className="h-9 w-9 overflow-hidden rounded-full bg-muted">
                 {f.avatar && (
-                  <img
+                  <Image
                     src={f.avatar}
                     alt={f.name}
+                    width={36}
+                    height={36}
                     className="h-full w-full object-cover"
-                    loading="lazy"
                   />
                 )}
               </div>

@@ -1,15 +1,13 @@
 "use client";
 
-import type { Room, Role } from "@/lib/helpers/types";
+import type { Room } from "@/lib/helpers/types";
 import ParticipantSlot from "./ParticipantSlot";
 import { MAX_PARTICIPANTS } from "@/lib/helpers/constants";
 
 export default function ParticipantGrid({
   room,
-  role,
 }: {
   room: Room;
-  role: Role;
 }) {
   const slots = room.participants;
   const blanks = Math.max(0, MAX_PARTICIPANTS - slots.length);

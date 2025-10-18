@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -14,8 +15,8 @@ export default function Page() {
         </p>
         <div className="mt-4 flex gap-2">
           <Button variant="outline">Gửi lại email</Button>
-          <Button asChild>
-            <a href="/">Về trang chủ</a>
+          <Button>
+            <Link href="/">Về trang chủ</Link>
           </Button>
         </div>
       </CardContent>

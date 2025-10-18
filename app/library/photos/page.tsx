@@ -1,5 +1,6 @@
 import { mockMedia } from "@/lib/helpers/mock";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 export default async function Page() {
   const items = mockMedia("photo", 12);
@@ -12,10 +13,11 @@ export default async function Page() {
           <Card key={p.id} className="overflow-hidden">
             <div className="relative aspect-square bg-muted">
               {p.thumb && (
-                <img
+                <Image
                   src={p.thumb}
                   alt={p.title}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  fill
+                  className="object-cover"
                   loading="lazy"
                 />
               )}

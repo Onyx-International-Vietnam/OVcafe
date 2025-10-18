@@ -1,6 +1,7 @@
 "use client";
 
 import type { Slot } from "@/lib/helpers/types";
+import Image from "next/image";
 
 export default function ParticipantSlot({ slot }: { slot?: Slot }) {
   return (
@@ -8,13 +9,13 @@ export default function ParticipantSlot({ slot }: { slot?: Slot }) {
       {slot?.user ? (
         <div className="absolute inset-0 grid place-items-center">
           <div className="flex flex-col items-center gap-2">
-            <div className="h-12 w-12 overflow-hidden rounded-full bg-black/20">
+            <div className="relative h-12 w-12 overflow-hidden rounded-full bg-black/20">
               {slot.user.avatar && (
-                <img
+                <Image
                   src={slot.user.avatar}
                   alt={slot.user.name}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
+                  fill
+                  className="object-cover"
                 />
               )}
             </div>

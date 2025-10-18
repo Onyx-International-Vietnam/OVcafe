@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -78,7 +79,7 @@ export default function Page() {
 
           <div className="flex items-center justify-end gap-2">
             <Button variant="outline" asChild>
-              <a href="/rooms">Hủy</a>
+              <Link href="/rooms">Hủy</Link>
             </Button>
             <Button>Tạo phòng</Button>
           </div>
