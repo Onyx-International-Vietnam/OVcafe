@@ -100,7 +100,7 @@ export function UsersDataTable({ data }: { data: User[] }) {
                   type="checkbox"
                   checked={selected.length === filtered.length && filtered.length > 0}
                   onChange={toggleSelectAll}
-                  className="cursor-pointer"
+                  className="h-4 w-4 cursor-pointer rounded border-gray-300"
                 />
               </TableHead>
               <TableHead>Email</TableHead>
@@ -118,7 +118,7 @@ export function UsersDataTable({ data }: { data: User[] }) {
                     type="checkbox"
                     checked={selected.includes(user.id)}
                     onChange={() => toggleSelect(user.id)}
-                    className="cursor-pointer"
+                    className="h-4 w-4 cursor-pointer rounded border-gray-300"
                   />
                 </TableCell>
                 <TableCell className="font-medium">{user.email}</TableCell>

@@ -20,7 +20,7 @@ async function VideoGrid() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 xl:grid-cols-4">
       {items.map((v) => (
         <Link key={v.id} href={`/library/videos/${v.id}`}>
           <Card className="overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
@@ -64,7 +64,7 @@ async function VideoGrid() {
 
 function VideoGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <VideoCardSkeleton key={i} />
       ))}
