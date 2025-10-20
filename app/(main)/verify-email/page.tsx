@@ -52,6 +52,8 @@ function VerifyEmailContent() {
         setError("Link xác nhận đã hết hạn. Vui lòng đăng ký lại.");
       }
     } catch (err) {
+      console.log(err);
+      
       setError("Không thể gửi lại email. Vui lòng thử lại sau.");
     } finally {
       setIsResending(false);

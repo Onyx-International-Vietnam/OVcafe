@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/helpers/utils";
-import { Settings, User, LogOut, Bell, Menu, X } from "lucide-react";
+import { Settings, User, LogOut, Bell, Menu } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,

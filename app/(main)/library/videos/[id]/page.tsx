@@ -1,13 +1,13 @@
 import { mockMedia } from "@/lib/helpers/mock";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Eye, ThumbsUp, Share2, Lock, Globe, Link2, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page() {
   const video = mockMedia("video", 1)[0];
   const relatedVideos = mockMedia("video", 4);
 
@@ -132,7 +132,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   <div className="flex gap-3">
                     <div className="relative w-[160px] aspect-video bg-muted rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
                       {v.thumb && (
-                        <img 
+                        <Image 
                           src={v.thumb} 
                           alt={v.title} 
                           className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300" 

@@ -1,12 +1,11 @@
 import { mockMedia } from "@/lib/helpers/mock";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Lock, Globe, Link2, Edit, Plus, Trash2, FolderInput } from "lucide-react";
+import { Globe, Edit, Plus, Trash2, FolderInput } from "lucide-react";
 import Image from "next/image";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page() {
   const photos = mockMedia("photo", 16);
 
   return (

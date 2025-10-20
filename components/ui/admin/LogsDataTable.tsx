@@ -28,7 +28,7 @@ type Log = {
   actor: string;
   action: string;
   target: string;
-  meta: Record<string, any>;
+  meta: Record<string, unknown>;
 };
 
 const actionLabels: Record<string, string> = {

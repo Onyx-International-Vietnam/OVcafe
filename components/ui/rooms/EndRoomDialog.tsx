@@ -18,7 +18,7 @@ interface EndRoomDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function EndRoomDialog({ roomId, open, onOpenChange }: EndRoomDialogProps) {
+export function EndRoomDialog({ open, onOpenChange }: EndRoomDialogProps) {
   const router = useRouter();
 
   const handleEndRoom = () => {

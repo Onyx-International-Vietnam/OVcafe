@@ -69,6 +69,7 @@ export default function Page() {
         router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
       }, 1000);
     } catch (err) {
+      console.log(err);
       setError("Đã xảy ra lỗi. Vui lòng thử lại sau.");
     } finally {
       setIsLoading(false);

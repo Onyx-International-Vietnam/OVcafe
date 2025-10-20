@@ -46,7 +46,7 @@ export default function Page() {
   const isEmpty = rooms.length === 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-0">
       {/* Header with gradient accent */}
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-lg -z-10" />

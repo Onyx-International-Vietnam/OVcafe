@@ -1,5 +1,4 @@
 import "./globals.css";
-import TopNav from "@/components/common/TopNav";
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 

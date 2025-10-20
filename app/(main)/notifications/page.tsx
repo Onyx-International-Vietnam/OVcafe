@@ -56,7 +56,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const handleAccept = (id: string) => {
     setNotifications((prev) =>

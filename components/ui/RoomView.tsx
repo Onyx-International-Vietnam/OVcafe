@@ -200,7 +200,7 @@ export default function RoomView({ roomId, initialTab }: RoomViewProps) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-64px)] bg-gray-50 overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-80px)] bg-gray-50 overflow-hidden">
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col bg-white min-w-0 order-1">
         {/* Header with mobile menu button */}
