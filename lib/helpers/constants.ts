@@ -27,6 +27,7 @@ export const SIDEBAR_TABS = [
   "files",
   "whiteboard",
   "data",
+  "settings",
 ] as const;
 export type SidebarTab = (typeof SIDEBAR_TABS)[number];
 

@@ -1,65 +1,41 @@
 "use client";
 
-import * as React from "react";
-import { toast } from "sonner";
-import type { Room, Role, Quality } from "@/lib/helpers/types";
-import { mockRoom, mockRoomTick } from "@/lib/helpers/mock";
-import RoomHeader from "./RoomHeader";
-import FeaturedStream from "./FeaturedStream";
-import ParticipantGrid from "./ParticipantGrid";
-import RightSidebar from "./RightSidebar";
-import ControlBar from "./ControlBar";
+import { RoomLayout } from "@/components/ui/rooms/RoomLayout";
+import { RoomNotifications } from "@/components/ui/rooms/RoomNotifications";
 import type { SidebarTab } from "@/lib/helpers/constants";
 
-export default function RoomView({
-  roomId,
-  initialTab = "chat",
-}: {
+interface RoomViewProps {
   roomId: string;
-  initialTab?: SidebarTab;
-}) {
-  const [role, setRole] = React.useState<Role>("viewer");
-  const [quality, setQuality] = React.useState<Quality>("auto");
-  const [room, setRoom] = React.useState<Room>(() => mockRoom(roomId));
+  initialTab: SidebarTab;
+}
 
-  // tick động
-  React.useEffect(() => {
-    const t = setInterval(() => setRoom((r) => mockRoomTick(r)), 1500);
-    return () => clearInterval(t);
-  }, []);
+export default function RoomView({ roomId, initialTab }: RoomViewProps) {
+  // TODO: Replace with actual user role logic from your auth system
+  const isOwner = true;
+  const isModerator = false;
 
   return (
-    <div className="grid h-[calc(100dvh-140px)] grid-cols-1 gap-3 md:grid-cols-[1fr_360px]">
-      <div className="flex min-h-0 flex-col gap-3">
-        <RoomHeader room={room} role={role} onRoleChange={setRole} />
-        <div className="grid min-h-0 flex-1 grid-rows-[1fr_auto] gap-3">
-          <FeaturedStream room={room} quality={quality} />
-          <ParticipantGrid room={room} />
+    <>
+      <RoomLayout
+        roomId={roomId}
+        initialTab={initialTab}
+        isOwner={isOwner}
+        isModerator={isModerator}
+      >
+        {/* Player/Stage Area - Add your video/audio components here */}
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="text-center space-y-4">
+            <h1 className="text-3xl font-bold">Room: {roomId}</h1>
+            <p className="text-muted-foreground">
+              Video conference stage will appear here
+            </p>
+            {/* TODO: Integrate WebRTC components */}
+          </div>
         </div>
-        <ControlBar
-          role={role}
-          quality={quality}
-          onQualityChange={(q) => {
-            setQuality(q);
-            toast.info(`Quality → ${q.toUpperCase()}`);
-          }}
-          onJoinSeat={() => {
-            setRole("participant");
-            toast.success("Đã gửi yêu cầu lên ghế (demo)");
-          }}
-          onLeave={() => {
-            setRole("viewer");
-            toast("Đã rời ghế", { description: "Bạn quay về chế độ xem." });
-          }}
-          onRecordToggle={() => {
-            setRoom((r) => ({ ...r, isRecording: !r.isRecording }));
-            toast.success(
-              room.isRecording ? "Đã tắt ghi hình" : "Đã bật ghi hình"
-            );
-          }}
-        />
-      </div>
-      <RightSidebar initialTab={initialTab} room={room} role={role} />
-    </div>
+      </RoomLayout>
+
+      {/* In-room notifications */}
+      <RoomNotifications roomId={roomId} />
+    </>
   );
 }

@@ -1,0 +1,234 @@
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { UserPlus, Users, Bell, Check, X } from "lucide-react";
+
+type NotificationType = "friend_request" | "room_invite" | "system";
+
+interface Notification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  timestamp: string;
+  read: boolean;
+  avatar?: string;
+  actionData?: {
+    userId?: string;
+    roomId?: string;
+  };
+}
+
+const MOCK_NOTIFICATIONS: Notification[] = [
+  {
+    id: "1",
+    type: "friend_request",
+    title: "Lời mời kết bạn",
+    message: "Nguyễn Văn A muốn kết bạn với bạn",
+    timestamp: "5 phút trước",
+    read: false,
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user2",
+    actionData: { userId: "user2" },
+  },
+  {
+    id: "2",
+    type: "room_invite",
+    title: "Lời mời vào phòng",
+    message: "Trần Thị B mời bạn tham gia phòng 'Chill Vibes'",
+    timestamp: "1 giờ trước",
+    read: false,
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user3",
+    actionData: { roomId: "room1" },
+  },
+  {
+    id: "3",
+    type: "system",
+    title: "Thông báo hệ thống",
+    message: "Cập nhật phiên bản mới với nhiều tính năng thú vị",
+    timestamp: "2 giờ trước",
+    read: false,
+  },
+];
+
+export default function NotificationsPage() {
+  const [notifications, setNotifications] = useState<Notification[]>(MOCK_NOTIFICATIONS);
+  const [loading, setLoading] = useState(false);
+
+  const handleAccept = (id: string) => {
+    setNotifications((prev) =>
+      prev.filter((n) => n.id !== id)
+    );
+  };
+
+  const handleDismiss = (id: string) => {
+    setNotifications((prev) =>
+      prev.filter((n) => n.id !== id)
+    );
+  };
+
+  const handleMarkAllRead = () => {
+    setNotifications((prev) =>
+      prev.map((n) => ({ ...n, read: true }))
+    );
+  };
+
+  const getIcon = (type: NotificationType) => {
+    switch (type) {
+      case "friend_request":
+        return <UserPlus className="h-5 w-5" />;
+      case "room_invite":
+        return <Users className="h-5 w-5" />;
+      case "system":
+        return <Bell className="h-5 w-5" />;
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-3xl p-6">
+        <div className="mb-6 flex items-center justify-between">
+          <Skeleton className="h-8 w-32" />
+          <Skeleton className="h-10 w-40" />
+        </div>
+        <div className="space-y-4">
+          {[1, 2, 3].map((i) => (
+            <Card key={i} className="p-4">
+              <div className="flex gap-4">
+                <Skeleton className="h-12 w-12 rounded-full" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-3xl p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Thông báo</h1>
+        {notifications.length > 0 && (
+          <Button variant="outline" onClick={handleMarkAllRead}>
+            Đánh dấu tất cả đã đọc
+          </Button>
+        )}
+      </div>
+
+      {notifications.length === 0 ? (
+        <Card className="p-12 text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+            <Bell className="h-8 w-8 text-muted-foreground" />
+          </div>
+          <h3 className="mb-2 text-lg font-semibold">Không có thông báo mới</h3>
+          <p className="text-sm text-muted-foreground">
+            Bạn đã xem hết tất cả thông báo
+          </p>
+        </Card>
+      ) : (
+        <div className="space-y-3">
+          {notifications.map((notification) => (
+            <Card
+              key={notification.id}
+              className={`p-4 transition-colors ${
+                !notification.read ? "bg-accent/50" : ""
+              }`}
+            >
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  {notification.avatar ? (
+                    <Avatar className="h-12 w-12">
+                      <AvatarImage src={notification.avatar} />
+                      <AvatarFallback>
+                        {getIcon(notification.type)}
+                      </AvatarFallback>
+                    </Avatar>
+                  ) : (
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted">
+                      {getIcon(notification.type)}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex-1">
+                  <div className="mb-1 flex items-start justify-between gap-2">
+                    <div>
+                      <h3 className="font-semibold">{notification.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {notification.message}
+                      </p>
+                    </div>
+                    {!notification.read && (
+                      <div className="h-2 w-2 rounded-full bg-blue-500" />
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs text-muted-foreground">
+                      {notification.timestamp}
+                    </span>
+
+                    <div className="flex gap-2">
+                      {notification.type === "friend_request" && (
+                        <>
+                          <Button
+                            size="sm"
+                            onClick={() => handleAccept(notification.id)}
+                          >
+                            <Check className="mr-1 h-4 w-4" />
+                            Chấp nhận
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDismiss(notification.id)}
+                          >
+                            <X className="mr-1 h-4 w-4" />
+                            Từ chối
+                          </Button>
+                        </>
+                      )}
+                      {notification.type === "room_invite" && (
+                        <>
+                          <Button
+                            size="sm"
+                            onClick={() => handleAccept(notification.id)}
+                          >
+                            Tham gia
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDismiss(notification.id)}
+                          >
+                            Bỏ qua
+                          </Button>
+                        </>
+                      )}
+                      {notification.type === "system" && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => handleDismiss(notification.id)}
+                        >
+                          Bỏ qua
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

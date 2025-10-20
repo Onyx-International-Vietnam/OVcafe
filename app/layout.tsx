@@ -12,8 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="vi">
       <body className="min-h-dvh bg-background text-foreground antialiased">
-        <TopNav />
-        <main className="container mx-auto max-w-7xl p-3 md:p-6">{children}</main>
+        {children}
         <Toaster position="top-right" richColors closeButton />
       </body>
     </html>
