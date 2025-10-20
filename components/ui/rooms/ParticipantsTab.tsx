@@ -33,7 +33,7 @@ interface ParticipantsTabProps {
   isOwner: boolean;
 }
 
-export function ParticipantsTab({ roomId, canModerate, isOwner }: ParticipantsTabProps) {
+export function ParticipantsTab({ canModerate, isOwner }: ParticipantsTabProps) {
   // Mock data - replace with real data from your state management
   const [participants] = useState<Participant[]>([
     {
