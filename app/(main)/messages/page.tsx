@@ -118,7 +118,7 @@ function MessagesPage() {
   };
 
   return (
-    <div className="grid h-[calc(100dvh-140px)] grid-cols-1 gap-0 overflow-hidden lg:grid-cols-[360px_1fr] lg:gap-4">
+    <div className="grid h-[calc(100dvh-110px)] grid-cols-1 gap-0 overflow-hidden lg:grid-cols-[360px_1fr] lg:gap-4">
       {/* Sidebar - Hidden on mobile when chat is selected */}
       <aside className={`flex min-h-0 flex-col space-y-3 overflow-hidden transition-all duration-300 ${!showSidebar ? "hidden lg:flex" : "flex"}`}>
         <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ function MessagesPage() {
                         <Image src={c.avatar} alt={c.name} className="h-full w-full object-cover" width={80} height={80} loading="lazy" />
                       </div>
                       {c.online && (
-                        <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background bg-green-500 z-10" />
+                        <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background bg-green-500" />
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -197,18 +197,20 @@ function MessagesPage() {
             <button
               title={`View profile of ${selected.name}`}
               onClick={() => router.push(`/profile/${selected.id}`)}
-              className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-primary/20 to-primary/5 ring-2 ring-background transition-all hover:scale-105"
+              className="relative h-10 w-10 shrink-0"
             >
-              <Image
-                src={`https://i.pravatar.cc/80?u=${encodeURIComponent(selected.id)}`}
-                alt={selected.name}
-                className="h-full w-full object-cover"
-                width={80}
-                height={80}
-                loading="lazy"
-              />
+              <div className="h-full w-full overflow-hidden rounded-full bg-gradient-to-br from-primary/20 to-primary/5 ring-2 ring-background transition-all hover:scale-105">
+                <Image
+                  src={`https://i.pravatar.cc/80?u=${encodeURIComponent(selected.id)}`}
+                  alt={selected.name}
+                  className="h-full w-full object-cover"
+                  width={80}
+                  height={80}
+                  loading="lazy"
+                />
+              </div>
               {selected.online && (
-                <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-background bg-green-500 z-10" />
+                <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-background bg-green-500" />
               )}
             </button>
             <button
