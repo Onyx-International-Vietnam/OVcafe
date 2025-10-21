@@ -15,18 +15,18 @@ export default function SettingsLayout({
   const currentTab = pathname.split('/').pop() || 'profile';
 
   return (
-    <div className="container max-w-4xl py-6">
-      <h1 className="text-3xl font-bold mb-6">Cài đặt</h1>
+    <div className="container max-w-4xl py-4 px-4 md:py-6">
+      <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Cài đặt</h1>
       
       <Tabs value={currentTab} onValueChange={(value) => router.push(`/settings/${value}`)}>
-        <TabsList className="grid w-full grid-cols-4 mb-6">
-          <TabsTrigger value="profile">Hồ sơ</TabsTrigger>
-          <TabsTrigger value="security">Bảo mật</TabsTrigger>
-          <TabsTrigger value="privacy">Riêng tư</TabsTrigger>
-          <TabsTrigger value="notifications">Thông báo</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-4 md:mb-6 h-auto">
+          <TabsTrigger value="profile" className="text-sm md:text-base">Hồ sơ</TabsTrigger>
+          <TabsTrigger value="security" className="text-sm md:text-base">Bảo mật</TabsTrigger>
+          <TabsTrigger value="privacy" className="text-sm md:text-base">Riêng tư</TabsTrigger>
+          <TabsTrigger value="notifications" className="text-sm md:text-base">Thông báo</TabsTrigger>
         </TabsList>
         
-        <Card className="p-6">
+        <Card className="p-4 md:p-6">
           {children}
         </Card>
       </Tabs>

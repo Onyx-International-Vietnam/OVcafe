@@ -50,39 +50,40 @@ export default function Page() {
       {/* Header with gradient accent */}
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent rounded-lg -z-10" />
-        <div className="flex items-end justify-between p-6 rounded-lg">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between p-4 sm:p-6 rounded-lg">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl md:text-3xl">
                 Phòng của tôi
               </h1>
               <Badge variant="secondary" className="text-xs">
-                {rooms.length} phòng
+                {rooms.length}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground max-w-2xl">
+            <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl">
               Tạo, quản lý và vào phòng nhanh. Tất cả phòng của bạn ở một nơi.
             </p>
           </div>
-          <Button asChild size="lg" className="shadow-lg shadow-primary/25">
+          <Button asChild size="default" className="shadow-lg shadow-primary/25 w-full sm:w-auto">
             <Link href="/create-room">
               <Plus className="mr-2 h-4 w-4" />
-              Tạo phòng mới
+              <span className="hidden sm:inline">Tạo phòng mới</span>
+              <span className="sm:hidden">Tạo phòng</span>
             </Link>
           </Button>
         </div>
       </div>
 
       {/* Advanced Toolbar */}
-      <Card className="shadow-sm">
-        <CardContent className="p-4">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <Card className="shadow-sm py-0">
+        <CardContent className="p-3 sm:p-4">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-between">
             {/* Search with icon */}
-            <div className="relative flex-1 max-w-full lg:max-w-md">
+            <div className="relative flex-1 w-full lg:max-w-md">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Tìm kiếm theo tên phòng..."
-                className="pl-9 h-10"
+                placeholder="Tìm kiếm..."
+                className="pl-9 h-9 sm:h-10"
               />
             </div>
 
@@ -90,11 +91,11 @@ export default function Page() {
               {/* Filter by Status */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-10">
-                    <Filter className="mr-2 h-4 w-4" />
-                    Trạng thái
+                  <Button variant="outline" size="sm" className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0">
+                    <Filter className="mr-1 sm:mr-2 h-4 w-4 flex-shrink-0" />
+                    <span className="truncate">Trạng thái</span>
                     {statusFilter !== "all" && (
-                      <Badge variant="secondary" className="ml-2 h-5 px-1">1</Badge>
+                      <Badge variant="secondary" className="ml-1 sm:ml-2 h-5 px-1 hidden xs:inline-flex">1</Badge>
                     )}
                   </Button>
                 </DropdownMenuTrigger>
@@ -124,11 +125,12 @@ export default function Page() {
               {/* Filter by Visibility */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-10">
-                    <Eye className="mr-2 h-4 w-4" />
-                    Hiển thị
+                  <Button variant="outline" size="sm" className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0">
+                    <Eye className="mr-1 sm:mr-2 h-4 w-4 flex-shrink-0" />
+                    <span className="truncate hidden xs:inline">Hiển thị</span>
+                    <span className="truncate xs:hidden">Hiện</span>
                     {visibilityFilter !== "all" && (
-                      <Badge variant="secondary" className="ml-2 h-5 px-1">1</Badge>
+                      <Badge variant="secondary" className="ml-1 sm:ml-2 h-5 px-1 hidden xs:inline-flex">1</Badge>
                     )}
                   </Button>
                 </DropdownMenuTrigger>
@@ -152,9 +154,9 @@ export default function Page() {
               {/* Sort */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-10">
-                    <ArrowUpDown className="mr-2 h-4 w-4" />
-                    Sắp xếp
+                  <Button variant="outline" size="sm" className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0">
+                    <ArrowUpDown className="mr-1 sm:mr-2 h-4 w-4 flex-shrink-0" />
+                    <span className="truncate">Sắp xếp</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-52">
@@ -177,14 +179,14 @@ export default function Page() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <div className="h-10 w-px bg-border hidden sm:block" />
+              <div className="h-10 w-px bg-border hidden md:block" />
 
               {/* View Toggle */}
               <div className="flex items-center rounded-lg border bg-background shadow-sm">
                 <Button
                   variant={viewMode === "grid" ? "secondary" : "ghost"}
                   size="sm"
-                  className="h-9 px-3 rounded-r-none"
+                  className="h-9 px-2 sm:px-3 rounded-r-none"
                   onClick={() => setViewMode("grid")}
                 >
                   <Grid3x3 className="h-4 w-4" />
@@ -192,7 +194,7 @@ export default function Page() {
                 <Button
                   variant={viewMode === "list" ? "secondary" : "ghost"}
                   size="sm"
-                  className="h-9 px-3 rounded-l-none"
+                  className="h-9 px-2 sm:px-3 rounded-l-none"
                   onClick={() => setViewMode("list")}
                 >
                   <List className="h-4 w-4" />
@@ -249,8 +251,8 @@ export default function Page() {
       {!isLoading && !isEmpty && (
         <div className={
           viewMode === "grid"
-            ? "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            : "flex flex-col gap-4"
+            ? "grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-3"
+            : "flex flex-col gap-3 sm:gap-4"
         }>
           {rooms.map((r) => (
             <RoomCard key={r.id} room={r} showActions={true} />
@@ -260,30 +262,32 @@ export default function Page() {
 
       {/* Pagination */}
       {!isLoading && !isEmpty && (
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                Hiển thị <span className="font-semibold text-foreground">1-{rooms.length}</span> trong tổng số{" "}
+        <Card className="py-0">
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
+                Hiển thị <span className="font-semibold text-foreground">1-{rooms.length}</span> trong{" "}
                 <span className="font-semibold text-foreground">{rooms.length}</span> phòng
               </p>
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" disabled>
-                  Trước
+              <div className="flex items-center gap-2 justify-center">
+                <Button variant="outline" size="sm" disabled className="h-8 px-2 sm:px-3">
+                  <span className="hidden sm:inline">Trước</span>
+                  <span className="sm:hidden">‹</span>
                 </Button>
                 <div className="flex items-center gap-1">
-                  <Button variant="default" size="sm" className="w-8">
+                  <Button variant="default" size="sm" className="w-8 h-8">
                     1
                   </Button>
-                  <Button variant="ghost" size="sm" className="w-8">
+                  <Button variant="ghost" size="sm" className="w-8 h-8 hidden xs:inline-flex">
                     2
                   </Button>
-                  <Button variant="ghost" size="sm" className="w-8">
+                  <Button variant="ghost" size="sm" className="w-8 h-8 hidden xs:inline-flex">
                     3
                   </Button>
                 </div>
-                <Button variant="outline" size="sm">
-                  Sau
+                <Button variant="outline" size="sm" className="h-8 px-2 sm:px-3">
+                  <span className="hidden sm:inline">Sau</span>
+                  <span className="sm:hidden">›</span>
                 </Button>
               </div>
             </div>
