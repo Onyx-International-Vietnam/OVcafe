@@ -32,7 +32,10 @@ export default function TopNav() {
     <header className="sticky top-0 z-30 w-full border-b bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 md:px-6">
         <Link href="/" className="font-extrabold tracking-tight text-lg md:text-xl">
-          OVCAFE
+          <h2 className="text-2xl sm:text-3xl font-bold">
+            <span className="text-orange-500">OV</span>
+            <span>CAFE</span>
+          </h2>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -57,7 +60,7 @@ export default function TopNav() {
           <Button asChild className="hidden md:inline-flex">
             <Link href="/create-room">Create Room</Link>
           </Button>
-          
+
           {/* Notifications */}
           <Button variant="ghost" size="icon" className="relative h-9 w-9" asChild>
             <Link href="/notifications">
@@ -67,7 +70,7 @@ export default function TopNav() {
               </span>
             </Link>
           </Button>
-          
+
           {/* User Menu Dropdown - Hidden on mobile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
