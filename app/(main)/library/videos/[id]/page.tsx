@@ -135,6 +135,7 @@ export default async function Page() {
                         <Image 
                           src={v.thumb} 
                           alt={v.title} 
+                          fill
                           className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300" 
                         />
                       )}
