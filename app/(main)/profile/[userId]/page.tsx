@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useState, use } from "react";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PhotoViewer } from "@/components/ui/library/PhotoViewer";
 
 export default function Page({ params }: { params: Promise<{ userId: string }> }) {
   const { userId } = use(params);
@@ -18,6 +19,9 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
   
   const [friendStatus, setFriendStatus] = useState<"none" | "pending" | "friends">("none");
   const [selectedAlbum, setSelectedAlbum] = useState<number | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<{ id: string; title: string; thumb?: string; visibility: "all" | "invited" | "selected" } | null>(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [isGalleryMode, setIsGalleryMode] = useState(false);
 
   const handleFriendAction = () => {
     if (friendStatus === "none") {
@@ -67,10 +71,63 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
     }))
   }));
 
+  // All photos for PhotoViewer navigation
+  const allPhotos = albums.flatMap(album => 
+    album.photos.map(photo => ({
+      id: `${album.id}-${photo.id}`,
+      title: photo.name,
+      thumb: photo.url,
+      visibility: "all" as const
+    }))
+  );
+
+  const openPhotoViewer = (photoUrl: string, photoName: string) => {
+    setSelectedPhoto({
+      id: photoUrl,
+      title: photoName,
+      thumb: photoUrl,
+      visibility: "all"
+    });
+    setIsGalleryMode(true);
+    setViewerOpen(true);
+  };
+
+  const openSinglePhoto = (photoUrl: string, photoName: string) => {
+    setSelectedPhoto({
+      id: photoUrl,
+      title: photoName,
+      thumb: photoUrl,
+      visibility: "all"
+    });
+    setIsGalleryMode(false);
+    setViewerOpen(true);
+  };
+
+  const handleNext = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = allPhotos.findIndex((p) => p.id === selectedPhoto.id);
+    if (currentIndex < allPhotos.length - 1) {
+      setSelectedPhoto(allPhotos[currentIndex + 1]);
+    }
+  };
+
+  const handlePrev = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = allPhotos.findIndex((p) => p.id === selectedPhoto.id);
+    if (currentIndex > 0) {
+      setSelectedPhoto(allPhotos[currentIndex - 1]);
+    }
+  };
+
+  const currentIndex = selectedPhoto ? allPhotos.findIndex((p) => p.id === selectedPhoto.id) : -1;
+
   return (
     <div className="space-y-4">
       <Card className="overflow-hidden">
-        <div className="relative h-48 md:h-64 bg-muted overflow-hidden group">
+        <div 
+          className="relative h-48 md:h-64 bg-muted overflow-hidden group cursor-pointer"
+          onClick={() => openSinglePhoto(`https://picsum.photos/seed/cover-${userId}/1200/400`, "Cover Photo")}
+        >
           <Image 
             src={`https://picsum.photos/seed/cover-${userId}/1200/400`}
             alt="Cover"
@@ -83,6 +140,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
               variant="secondary" 
               size="sm"
               className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={(e) => e.stopPropagation()}
             >
               <Camera className="h-4 w-4 mr-2" />
               Chỉnh sửa ảnh bìa
@@ -92,16 +150,28 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
 
         <div className="relative px-6 pb-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:gap-6">
-            <div className="-mt-16 h-32 w-32 rounded-full border-4 border-background bg-muted overflow-hidden flex-shrink-0 group relative">
+            <div 
+              className="-mt-16 h-32 w-32 rounded-full border-4 border-background bg-muted overflow-hidden flex-shrink-0 group relative cursor-pointer"
+              onClick={() => openSinglePhoto(`https://picsum.photos/seed/avatar-${userId}/400/400`, `${user.name}'s avatar`)}
+            >
               <Image 
-                src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userId}`}
+                src={`https://picsum.photos/seed/avatar-${userId}/400/400`}
                 alt={user.name}
                 fill
                 className="object-cover"
               />
               {isOwnProfile && (
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
-                  <Camera className="h-6 w-6 text-white" />
+                <div 
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                >
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-white"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Camera className="h-6 w-6" />
+                  </Button>
                 </div>
               )}
             </div>
@@ -234,6 +304,7 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
                     <div 
                       key={photo.id} 
                       className="aspect-square rounded-lg overflow-hidden bg-muted group relative cursor-pointer"
+                      onClick={() => openPhotoViewer(photo.url, photo.name)}
                     >
                       <Image 
                         src={photo.url}
@@ -264,7 +335,11 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {[...Array(12)].map((_, i) => (
-                <div key={i} className="aspect-square rounded-lg overflow-hidden bg-muted group relative cursor-pointer">
+                <div 
+                  key={i} 
+                  className="aspect-square rounded-lg overflow-hidden bg-muted group relative cursor-pointer"
+                  onClick={() => openPhotoViewer(`https://picsum.photos/seed/${userId}-photo-${i}/400/400`, `Photo ${i + 1}`)}
+                >
                   <Image 
                     src={`https://picsum.photos/seed/${userId}-photo-${i}/400/400`}
                     alt={`Photo ${i + 1}`}
@@ -319,6 +394,16 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
           </Card>
         </TabsContent>
       </Tabs>
+
+      <PhotoViewer
+        photo={selectedPhoto}
+        open={viewerOpen}
+        onClose={() => setViewerOpen(false)}
+        onNext={isGalleryMode ? handleNext : undefined}
+        onPrev={isGalleryMode ? handlePrev : undefined}
+        hasNext={isGalleryMode && currentIndex < allPhotos.length - 1}
+        hasPrev={isGalleryMode && currentIndex > 0}
+      />
     </div>
   );
 }
