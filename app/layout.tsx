@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi">
-      <body className="min-h-dvh bg-background text-foreground antialiased">
+    <html lang="vi" suppressHydrationWarning>
+      <body className="min-h-dvh bg-background text-foreground antialiased" suppressHydrationWarning>
         {children}
         <Toaster position="top-right" richColors closeButton />
       </body>

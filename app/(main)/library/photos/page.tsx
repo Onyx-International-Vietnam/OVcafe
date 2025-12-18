@@ -1,3 +1,5 @@
+"use client";
+
 import { mockMedia } from "@/lib/helpers/mock";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PhotoUploadDialog } from "@/components/ui/library/PhotoUploadDialog";
+import { PhotoViewer } from "@/components/ui/library/PhotoViewer";
 import {
   Search,
   FolderPlus,
@@ -23,10 +26,35 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 
-async function PhotosGrid() {
+function PhotosGrid() {
   const items = mockMedia("photo", 12);
+  const [selectedPhoto, setSelectedPhoto] = useState<typeof items[0] | null>(null);
+  const [viewerOpen, setViewerOpen] = useState(false);
+
+  const openPhotoViewer = (photo: typeof items[0]) => {
+    setSelectedPhoto(photo);
+    setViewerOpen(true);
+  };
+
+  const handleNext = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = items.findIndex((p) => p.id === selectedPhoto.id);
+    if (currentIndex < items.length - 1) {
+      setSelectedPhoto(items[currentIndex + 1]);
+    }
+  };
+
+  const handlePrev = () => {
+    if (!selectedPhoto) return;
+    const currentIndex = items.findIndex((p) => p.id === selectedPhoto.id);
+    if (currentIndex > 0) {
+      setSelectedPhoto(items[currentIndex - 1]);
+    }
+  };
+
+  const currentIndex = selectedPhoto ? items.findIndex((p) => p.id === selectedPhoto.id) : -1;
 
   if (items.length === 0) {
     return (
@@ -42,39 +70,54 @@ async function PhotosGrid() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
-      {items.map((photo) => (
-        <div key={photo.id} className="group relative aspect-square">
-          <div className="absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Checkbox className="bg-white shadow-md" />
-          </div>
-          <Card className="overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary hover:shadow-lg transition-all h-full">
-            <div className="relative aspect-square bg-muted">
-              {photo.thumb && (
-                <Image
-                  src={photo.thumb}
-                  alt={photo.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-200"
-                  loading="lazy"
-                />
-              )}
+    <>
+      <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7" suppressHydrationWarning>
+        {items.map((photo) => (
+          <div key={photo.id} className="group relative aspect-square" suppressHydrationWarning>
+            <div className="absolute top-2 left-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" suppressHydrationWarning>
+              <Checkbox className="bg-white shadow-md" />
             </div>
-          </Card>
-          <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Badge variant="secondary" className="text-xs shadow-md">
-              {photo.visibility === "all" && <Globe className="h-3 w-3" />}
-              {photo.visibility === "invited" && <Lock className="h-3 w-3" />}
-              {photo.visibility === "selected" && <Link2 className="h-3 w-3" />}
-            </Badge>
+            <Card 
+              className="overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary hover:shadow-lg transition-all h-full"
+              onClick={() => openPhotoViewer(photo)}
+            >
+              <div className="relative aspect-square bg-muted" suppressHydrationWarning>
+                {photo.thumb && (
+                  <Image
+                    src={photo.thumb}
+                    alt={photo.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-200"
+                    loading="lazy"
+                  />
+                )}
+              </div>
+            </Card>
+            <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity" suppressHydrationWarning>
+              <Badge variant="secondary" className="text-xs shadow-md">
+                {photo.visibility === "all" && <Globe className="h-3 w-3" />}
+                {photo.visibility === "invited" && <Lock className="h-3 w-3" />}
+                {photo.visibility === "selected" && <Link2 className="h-3 w-3" />}
+              </Badge>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+      
+      <PhotoViewer
+        photo={selectedPhoto}
+        open={viewerOpen}
+        onClose={() => setViewerOpen(false)}
+        onNext={handleNext}
+        onPrev={handlePrev}
+        hasNext={currentIndex < items.length - 1}
+        hasPrev={currentIndex > 0}
+      />
+    </>
   );
 }
 
-async function AlbumsGrid() {
+function AlbumsGrid() {
   const albums = [
     { id: "1", title: "Summer 2024", count: 45, cover: "/placeholder.svg" },
     { id: "2", title: "Travel Photos", count: 128, cover: "/placeholder.svg" },
@@ -111,7 +154,7 @@ async function AlbumsGrid() {
   );
 }
 
-export default async function Page() {
+export default function Page() {
   return (
     <div className="space-y-4 pb-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
