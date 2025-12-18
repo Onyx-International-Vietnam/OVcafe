@@ -57,7 +57,7 @@ export default function Page() {
                 Phòng của tôi
               </h1>
               <Badge variant="secondary" className="text-xs">
-                {rooms.length}
+                {rooms.length} phòng
               </Badge>
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl">
