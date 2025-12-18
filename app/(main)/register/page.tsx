@@ -77,8 +77,8 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-auto max-w-md space-y-6 p-4">
-      <div>
+    <div className="mx-auto max-w-md space-y-6 pt-5">
+      <div className="text-[#F5F5F5]">
         <h1 className="text-2xl font-bold">Đăng ký</h1>
         <p className="text-sm text-muted-foreground">
           Tạo tài khoản mới để bắt đầu sử dụng dịch vụ
