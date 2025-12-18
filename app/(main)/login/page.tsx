@@ -40,7 +40,7 @@ export default function Page() {
     <div className="mx-auto max-w-md space-y-6 pt-5">
       <div className="text-[#F5F5F5]">
         <h1 className="text-2xl font-bold">Đăng nhập</h1>
-        <p className="text-sm text-muted-foreground">Dùng email để vào hệ thống.</p>
+        <p className="text-sm">Dùng email để vào hệ thống.</p>
       </div>
 
       <Card>

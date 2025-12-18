@@ -23,7 +23,7 @@ export default function Page() {
     <div className="mx-auto max-w-2xl space-y-6 pt-5">
       <div className="text-[#F5F5F5]">
         <h1 className="text-xl font-bold md:text-2xl">Tạo phòng chat video</h1>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm">
           Đặt tên, mô tả và chọn tính năng bạn cần. Có thể đổi sau.
         </p>
       </div>
