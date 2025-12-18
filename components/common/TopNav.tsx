@@ -46,7 +46,7 @@ export default function TopNav() {
                 key={i.href}
                 href={i.href}
                 className={cn(
-                  "rounded-[var(--radius)] px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors",
+                  "rounded-[var(--radius)] font-medium px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors",
                   active && "bg-accent text-accent-foreground font-medium"
                 )}
               >
@@ -57,7 +57,7 @@ export default function TopNav() {
         </nav>
 
         <div className="flex items-center gap-1 md:gap-2">
-          <Button asChild className="hidden md:inline-flex">
+          <Button asChild className="hidden md:inline-flex bg-[#FF9013]">
             <Link href="/create-room">Create Room</Link>
           </Button>
 

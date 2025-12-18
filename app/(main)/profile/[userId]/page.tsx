@@ -108,7 +108,8 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
             
             <div className="flex-1 min-w-0">
               <h1 className="text-2xl font-bold truncate">{user.name}</h1>
-              <p className="text-sm text-muted-foreground">@user{userId}</p>
+              <p className="text-sm text-muted-foreground my-1">@user{userId}</p>
+              <p className="text-sm font-medium">☕ Coffee enthusiast | 📸 Photography lover | 🌏 Traveler</p>
             </div>
 
             <div className="flex gap-2">
@@ -133,6 +134,21 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
                   </Button>
                 </>
               )}
+            </div>
+          </div>
+          <hr className="my-4 border" />
+          <div className="flex gap-6">
+            <div className="flex flex-col">
+              <p className="font-bold text-[22px]">142</p>
+              <p className="text-[#64748B] font-medium text-[14px]">Bài viết</p>
+            </div>
+            <div className="flex flex-col">
+              <p className="font-bold text-[22px]">1.2K</p>
+              <p className="text-[#64748B] font-medium text-[14px]">Người theo dõi</p>
+            </div>
+            <div className="flex flex-col">
+              <p className="font-bold text-[22px]">865</p>
+              <p className="text-[#64748B] font-medium text-[14px]">Đang theo dõi</p>
             </div>
           </div>
         </div>
@@ -161,11 +177,6 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
               <>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold">Album của tôi</h2>
-                  {isOwnProfile && (
-                    <Button variant="ghost" size="sm">
-                      Tạo album mới
-                    </Button>
-                  )}
                 </div>
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
                   {albums.map((album) => (
@@ -188,6 +199,12 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
                       </div>
                     </div>
                   ))}
+                </div>
+                {/* Show All Button */}
+                <div className="flex justify-center mt-6">
+                  <button className="w-fit px-4 py-2 border-2 border-[#333] rounded-sm font-medium hover:bg-gray-50 transition-colors">
+                    Hiển thị tất cả
+                  </button>
                 </div>
               </>
             ) : (
@@ -228,6 +245,12 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
                     </div>
                   ))}
                 </div>
+                {/* Show All Button */}
+                <div className="flex justify-center mt-6">
+                  <button className="w-fit px-4 py-2 border-2 border-[#333] rounded-sm font-medium hover:bg-gray-50 transition-colors">
+                    Hiển thị tất cả
+                  </button>
+                </div>
               </>
             )}
           </Card>
@@ -238,11 +261,6 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
           <Card className="p-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold">Tất cả ảnh</h2>
-              {isOwnProfile && (
-                <Button variant="ghost" size="sm">
-                  Tải ảnh lên
-                </Button>
-              )}
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {[...Array(12)].map((_, i) => (
@@ -257,6 +275,12 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
                 </div>
               ))}
             </div>
+            {/* Show All Button */}
+            <div className="flex justify-center mt-6">
+              <button className="w-fit px-4 py-2 border-2 border-[#333] rounded-sm font-medium hover:bg-gray-50 transition-colors">
+                Hiển thị tất cả
+              </button>
+            </div>
           </Card>
         </TabsContent>
 
@@ -265,11 +289,6 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
           <Card className="p-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold">Video của tôi</h2>
-              {isOwnProfile && (
-                <Button variant="ghost" size="sm">
-                  Tải video lên
-                </Button>
-              )}
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {[...Array(6)].map((_, i) => (
@@ -290,6 +309,12 @@ export default function Page({ params }: { params: Promise<{ userId: string }> }
                   </div>
                 </div>
               ))}
+            </div>
+            {/* Show All Button */}
+            <div className="flex justify-center mt-6">
+              <button className="w-fit px-4 py-2 border-2 border-[#333] rounded-sm font-medium hover:bg-gray-50 transition-colors">
+                Hiển thị tất cả
+              </button>
             </div>
           </Card>
         </TabsContent>

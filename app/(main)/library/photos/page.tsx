@@ -2,12 +2,25 @@ import { mockMedia } from "@/lib/helpers/mock";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PhotoUploadDialog } from "@/components/ui/library/PhotoUploadDialog";
-import { Search, FolderPlus, Lock, Globe, Link2, ImagePlus } from "lucide-react";
+import {
+  Search,
+  FolderPlus,
+  Lock,
+  Globe,
+  Link2,
+  ImagePlus,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -20,7 +33,9 @@ async function PhotosGrid() {
       <div className="flex flex-col items-center justify-center py-16 sm:py-20 text-center">
         <ImagePlus className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground mb-4" />
         <h3 className="text-lg sm:text-xl font-semibold mb-2">No photos yet</h3>
-        <p className="text-sm text-muted-foreground mb-6 max-w-sm">Upload your first photo to get started</p>
+        <p className="text-sm text-muted-foreground mb-6 max-w-sm">
+          Upload your first photo to get started
+        </p>
         <PhotoUploadDialog />
       </div>
     );
@@ -82,8 +97,12 @@ async function AlbumsGrid() {
               />
             </div>
             <CardContent className="p-3 sm:p-4">
-              <div className="font-medium text-sm sm:text-base group-hover:text-primary transition-colors">{album.title}</div>
-              <div className="text-xs sm:text-sm text-muted-foreground">{album.count} photos</div>
+              <div className="font-medium text-sm sm:text-base group-hover:text-primary transition-colors">
+                {album.title}
+              </div>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                {album.count} photos
+              </div>
             </CardContent>
           </Card>
         </Link>
@@ -159,13 +178,25 @@ export default async function Page() {
             </CardContent>
           </Card>
 
-          <Suspense fallback={<div className="text-center py-8 text-muted-foreground">Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="text-center py-8 text-muted-foreground">
+                Loading...
+              </div>
+            }
+          >
             <PhotosGrid />
           </Suspense>
         </TabsContent>
 
         <TabsContent value="albums" className="space-y-4">
-          <Suspense fallback={<div className="text-center py-8 text-muted-foreground">Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="text-center py-8 text-muted-foreground">
+                Loading...
+              </div>
+            }
+          >
             <AlbumsGrid />
           </Suspense>
         </TabsContent>

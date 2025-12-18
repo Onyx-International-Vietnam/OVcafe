@@ -125,6 +125,13 @@ export default async function Page() {
       <Suspense fallback={<VideoGridSkeleton />}>
         <VideoGrid />
       </Suspense>
+
+      {/* Show All Button */}
+      <div className="flex justify-center pt-4">
+        <button className="w-fit px-4 py-2 border-2 border-[#333] rounded-sm font-medium hover:bg-gray-50 transition-colors">
+          Hiển thị tất cả
+        </button>
+      </div>
     </div>
   );
 }

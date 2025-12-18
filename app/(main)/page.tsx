@@ -7,7 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Sparkles, TrendingUp, Search, Grid3x3, Filter, Eye, ArrowUpDown, List } from "lucide-react";
+import {
+  Sparkles,
+  TrendingUp,
+  Search,
+  Grid3x3,
+  Filter,
+  Eye,
+  ArrowUpDown,
+  List,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   DropdownMenu,
@@ -26,7 +35,10 @@ export default function Page() {
   const [sortBy, setSortBy] = useState("recent");
   const rooms = mockRooms(8).map((room) => ({
     ...room,
-    tags: ["Gaming", "Chill", "Music", "Talk"].slice(0, Math.floor(Math.random() * 3) + 1),
+    tags: ["Gaming", "Chill", "Music", "Talk"].slice(
+      0,
+      Math.floor(Math.random() * 3) + 1
+    ),
     createdAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000),
     viewerCount: room.viewerCount ?? 0, // Ensure viewerCount is always defined
   }));
@@ -38,7 +50,10 @@ export default function Page() {
         <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,transparent,black)]" />
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-3">
-            <Badge variant="secondary" className="bg-white/20 text-white border-0 backdrop-blur-sm">
+            <Badge
+              variant="secondary"
+              className="bg-white/20 text-white border-0 backdrop-blur-sm"
+            >
               <TrendingUp className="mr-1 h-3 w-3" />
               Đang hot
             </Badge>
@@ -47,7 +62,8 @@ export default function Page() {
             Đang livestream
           </h1>
           <p className="text-white/90 text-base md:text-lg max-w-2xl mb-6">
-            Khám phá các phòng đang hoạt động – click để tham gia ngay và kết nối với mọi người.
+            Khám phá các phòng đang hoạt động – click để tham gia ngay và kết
+            nối với mọi người.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-2xl">
             <Input
@@ -69,30 +85,44 @@ export default function Page() {
         <CardContent className="p-3 sm:p-4">
           <div className="flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:justify-between">
             {/* Search with icon */}
-            <div className="relative flex-1 w-full lg:max-w-md">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Tìm kiếm..."
-                className="pl-9 h-9 sm:h-10"
-              />
+            <div className="flex gap-4 items-center w-full">
+              <div className="relative flex-1 w-full lg:max-w-md">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input placeholder="Tìm kiếm..." className="pl-9 h-10" />
+              </div>
+              <button className="bg-[#FF9013] px-5 h-10 text-white font-medium rounded-md whitespace-nowrap">
+                Tìm
+              </button>
             </div>
 
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center justify-end gap-2 flex-wrap w-full">
               {/* Filter by Status */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0"
+                  >
                     <Filter className="mr-1 sm:mr-2 h-4 w-4 flex-shrink-0" />
                     <span className="truncate">Trạng thái</span>
                     {statusFilter !== "all" && (
-                      <Badge variant="secondary" className="ml-1 sm:ml-2 h-5 px-1 hidden xs:inline-flex">1</Badge>
+                      <Badge
+                        variant="secondary"
+                        className="ml-1 sm:ml-2 h-5 px-1 hidden xs:inline-flex"
+                      >
+                        1
+                      </Badge>
                     )}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuLabel>Lọc theo trạng thái</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup value={statusFilter} onValueChange={setStatusFilter}>
+                  <DropdownMenuRadioGroup
+                    value={statusFilter}
+                    onValueChange={setStatusFilter}
+                  >
                     <DropdownMenuRadioItem value="all">
                       Tất cả
                     </DropdownMenuRadioItem>
@@ -115,19 +145,31 @@ export default function Page() {
               {/* Filter by Visibility */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0"
+                  >
                     <Eye className="mr-1 sm:mr-2 h-4 w-4 flex-shrink-0" />
                     <span className="truncate hidden xs:inline">Hiển thị</span>
                     <span className="truncate xs:hidden">Hiện</span>
                     {visibilityFilter !== "all" && (
-                      <Badge variant="secondary" className="ml-1 sm:ml-2 h-5 px-1 hidden xs:inline-flex">1</Badge>
+                      <Badge
+                        variant="secondary"
+                        className="ml-1 sm:ml-2 h-5 px-1 hidden xs:inline-flex"
+                      >
+                        1
+                      </Badge>
                     )}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuLabel>Lọc theo quyền truy cập</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup value={visibilityFilter} onValueChange={setVisibilityFilter}>
+                  <DropdownMenuRadioGroup
+                    value={visibilityFilter}
+                    onValueChange={setVisibilityFilter}
+                  >
                     <DropdownMenuRadioItem value="all">
                       Tất cả
                     </DropdownMenuRadioItem>
@@ -144,7 +186,11 @@ export default function Page() {
               {/* Sort */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 sm:h-10 flex-1 sm:flex-none min-w-0"
+                  >
                     <ArrowUpDown className="mr-1 sm:mr-2 h-4 w-4 flex-shrink-0" />
                     <span className="truncate">Sắp xếp</span>
                   </Button>
@@ -152,7 +198,10 @@ export default function Page() {
                 <DropdownMenuContent align="end" className="w-52">
                   <DropdownMenuLabel>Sắp xếp theo</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuRadioGroup value={sortBy} onValueChange={setSortBy}>
+                  <DropdownMenuRadioGroup
+                    value={sortBy}
+                    onValueChange={setSortBy}
+                  >
                     <DropdownMenuRadioItem value="recent">
                       Gần đây nhất
                     </DropdownMenuRadioItem>
@@ -196,19 +245,24 @@ export default function Page() {
       </Card>
 
       {/* Rooms Grid */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">
-            Phòng đang hoạt động
-          </h2>
-          <Badge variant="outline">
-            {rooms.filter(r => r.isLive).length} phòng live
-          </Badge>
+      <div className="flex flex-col gap-8">
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold">Phòng đang hoạt động</h2>
+            <Badge variant="outline">
+              {rooms.filter((r) => r.isLive).length} phòng live
+            </Badge>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {rooms.map((r) => (
+              <RoomCard key={r.id} room={r} />
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {rooms.map((r) => (
-            <RoomCard key={r.id} room={r} />
-          ))}
+        <div className="flex justify-center">
+          <button className="px-5 py-2 border-2 border-[#333] rounded-md font-medium">
+            Hiển thị tất cả
+          </button>
         </div>
       </div>
     </div>
