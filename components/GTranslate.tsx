@@ -26,7 +26,22 @@ const GTranslate = () => {
               default_language: "vi",
               native_language_names: true,
               detect_browser_language: true,
-              languages: ["vi", "en", "zh-CN", "ja", "ko"],
+              languages: [
+                "vi",    // Tiếng Việt
+                "en",    // Tiếng Anh (English)
+                "zh-CN", // Trung Quốc - Giản thể (Chinese Simplified)
+                "zh-TW", // Trung Quốc - Phồn thể (Chinese Traditional)
+                "ja",    // Nhật Bản (Japanese)
+                "ko",    // Hàn Quốc (Korean)
+                "fr",    // Pháp (French)
+                "de",    // Đức (German)
+                "ru",    // Nga (Russian)
+                "es",    // Tây Ban Nha (Spanish)
+                "th",    // Thái Lan (Thai)
+                "km",    // Campuchia (Khmer)
+                "lo",    // Lào (Lao)
+                "id"     // Indonesia
+              ],
               wrapper_selector: ".gtranslate_wrapper",
               flag_style: "3d",
               alt_flags: { "en": "usa" },
