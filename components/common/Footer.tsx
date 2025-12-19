@@ -5,6 +5,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 // shadcn/ui components
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import GTranslate from "@/components/GTranslate"; 
 
 export default function Footer() {
     return (
@@ -61,9 +62,9 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li className="pt-2">
-                                <Button variant="outline" className="bg-transparent border-gray-500 text-gray-400 hover:bg-[#3d4452] hover:text-white text-sm h-8 px-3">
-                                    🇬🇧 English ▼
-                                </Button>
+                                <div className="inline-block"> 
+                                    <GTranslate />
+                                </div>
                             </li>
                         </ul>
                     </div>
