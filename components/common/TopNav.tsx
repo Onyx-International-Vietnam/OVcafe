@@ -17,11 +17,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 
 const NAV = [
-  { href: "/", label: "Discover" },
-  { href: "/rooms", label: "My Rooms" },
-  { href: "/library/videos", label: "Videos" },
-  { href: "/library/photos", label: "Photos" },
-  { href: "/friends", label: "Friends" },
+  { href: "/", label: "Khám phá" },
+  { href: "/rooms", label: "Phòng của tôi" },
+  { href: "/library/videos", label: "Video" },
+  { href: "/library/photos", label: "Hình ảnh" },
+  { href: "/friends", label: "Bạn bè" },
 ];
 
 export default function TopNav() {
@@ -58,7 +58,7 @@ export default function TopNav() {
 
         <div className="flex items-center gap-1 md:gap-2">
           <Button asChild className="hidden md:inline-flex bg-[#FF9013]">
-            <Link href="/create-room">Create Room</Link>
+            <Link href="/create-room">Tạo phòng</Link>
           </Button>
 
           {/* Notifications */}

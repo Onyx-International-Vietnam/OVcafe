@@ -129,3 +129,32 @@ body {
   }
 }
 
+/* --- GTranslate CSS --- */
+
+/* Ẩn thanh top bar của Google */
+.skiptranslate iframe {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+/* CẤU HÌNH MỚI CHO FOOTER */
+.gtranslate_wrapper {
+    display: inline-block;
+    position: relative; /* Quan trọng: để nó nằm yên trong footer */
+    z-index: 10;
+}
+
+/* Chỉnh sửa giao diện widget để hợp với nền tối (Optional) */
+/* Đoạn này cố gắng làm cái box chọn trông gọn hơn */
+.gtranslate_wrapper select {
+    background-color: #3d4452 !important; /* Màu nền giống nút cũ của bạn */
+    color: white !important;
+    border: 1px solid #6b7280 !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    outline: none !important;
+    height: 32px !important; /* Khớp với chiều cao nút cũ */
+}

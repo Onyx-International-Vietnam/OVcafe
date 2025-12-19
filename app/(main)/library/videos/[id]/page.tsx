@@ -14,9 +14,7 @@ export default async function Page() {
   return (
     <div className="container mx-auto px-4 py-6 max-w-[1800px]">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_420px]">
-        {/* Main Content */}
         <div className="space-y-5 min-w-0">
-          {/* Video Player */}
           <div className="rounded-xl overflow-hidden shadow-lg bg-black">
             <div className="relative aspect-video">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -24,15 +22,12 @@ export default async function Page() {
                   <div className="w-20 h-20 mx-auto rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
                     <div className="text-6xl text-white">▶</div>
                   </div>
-                  <p className="text-sm text-gray-400">Video Player Placeholder</p>
+                  <p className="text-sm text-gray-400">Vị trí trình phát video</p>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Video Info */}
           <div className="space-y-5">
-            {/* Title & Badge */}
             <div className="space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                 <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold flex-1 leading-tight tracking-tight">
@@ -46,15 +41,14 @@ export default async function Page() {
                 </Badge>
               </div>
 
-              {/* Stats */}
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2 font-medium">
                   <Eye className="h-4 w-4" />
-                  <span>1.2K views</span>
+                  <span>1.2K lượt xem</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  <span>2 days ago</span>
+                  <span>2 ngày trước</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
@@ -63,21 +57,19 @@ export default async function Page() {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3">
               <Button variant="default" size="default" className="flex-1 sm:flex-none shadow-md">
                 <ThumbsUp className="h-4 w-4 mr-2" />
-                Like
+                Thích
               </Button>
               <Button variant="outline" size="default" className="flex-1 sm:flex-none">
                 <Share2 className="h-4 w-4 mr-2" />
-                Share
+                Chia sẻ
               </Button>
             </div>
 
             <Separator className="my-5" />
 
-            {/* Owner Info */}
             <div className="flex items-center gap-4 py-3">
               <Avatar className="h-12 w-12 ring-2 ring-offset-2 ring-primary/20">
                 <AvatarFallback className="bg-gradient-to-br from-primary to-primary/70 text-white font-semibold">
@@ -86,27 +78,25 @@ export default async function Page() {
               </Avatar>
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-base sm:text-lg">John Doe</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Posted 2 days ago · 10K subscribers</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Đăng 2 ngày trước · 10K người đăng ký</div>
               </div>
               <Button variant="default" size="default" className="hidden sm:flex shadow-md">
-                Subscribe
+                Đăng ký
               </Button>
             </div>
 
             <Separator className="my-5" />
 
-            {/* Description */}
             <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
-              <h3 className="font-semibold text-base">Description</h3>
+              <h3 className="font-semibold text-base">Mô tả</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                Chúng ta cần sửa lại file này một chút để bỏ các settings liên quan đến vị trí (bottom/right) vì bây giờ nó sẽ nằm đâu thì hiển thị đó.
               </p>
             </div>
 
-            {/* Tags */}
             <div className="flex flex-wrap gap-2">
               <Badge variant="outline" className="hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer px-3 py-1">
-                #travel
+                #du_lịch
               </Badge>
               <Badge variant="outline" className="hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer px-3 py-1">
                 #vlog
@@ -118,10 +108,9 @@ export default async function Page() {
           </div>
         </div>
 
-        {/* Sidebar - Related Videos */}
         <div className="lg:sticky lg:top-6 lg:self-start space-y-4">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-lg">Related Videos</h3>
+            <h3 className="font-bold text-lg">Video liên quan</h3>
             <Badge variant="secondary" className="text-xs">{relatedVideos.length}</Badge>
           </div>
           
@@ -152,9 +141,9 @@ export default async function Page() {
                         John Doe
                       </div>
                       <div className="text-xs text-muted-foreground flex items-center gap-1">
-                        <span>1.2K views</span>
+                        <span>1.2K lượt xem</span>
                         <span>·</span>
-                        <span>2 days ago</span>
+                        <span>2 ngày trước</span>
                       </div>
                     </div>
                   </div>
